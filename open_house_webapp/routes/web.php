@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\EvaluationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/project', [ProjectController::class, 'register'])->name('project.register');
     Route::post('/project', [ProjectController::class, 'project'])->name('project');
+    Route::get('/evaluation', [EvaluationController::class, 'updateEvaluation'])->name('update_evaluation');
 });
 
 require __DIR__.'/auth.php';

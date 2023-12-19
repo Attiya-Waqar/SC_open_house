@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Evaluation;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,8 +11,35 @@ class ProjectController extends Controller
 {
     public function register()
     {
+        $user = Auth::user();
 
-        return view('project.register');
+        $view = match ($user->role) {
+            'admin' => view(''),
+            'evaluator' => function () use ($user) {
+                $evaluations = Evaluation::where('evaluator_id', $user->id)->first();
+                
+                if (!$evaluations) {
+                    return view('project.no_evaluations');
+                } else {
+                    $project = Project::where('id', $evaluations->project_id)->first();
+                    return view('project.evaluations', compact('project', 'evaluations'));
+                    
+                }
+            },
+            default => function () use ($user) {
+                $project = Project::where('user_id', $user->id)->first();
+                if ($project) {
+                    return view('project.details');
+                } else {
+                    return view('project.register');
+                }
+            },
+        };
+
+        $view = $view();
+
+        return $view;
+
     }
     public function project(Request $request)
 {

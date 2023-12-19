@@ -22,6 +22,32 @@
                         
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header">{{ __('Project Evaluations') }}</div>
+
+                    <div class="card-body">
+                        
+                        
+                        <p><strong>Evaluator Name:</strong> {{ $project->project_category }}</p>
+                        <p><strong>Status:</strong> {{ $project->project_description }}</p>
+
+                        <!-- Add more details as needed -->
+
+                        
+                    </div>
+                    <div class="card-body">
+                        
+                        
+                        <p><strong>Evaluator Name:</strong> {{ $project->project_category }}</p>
+                        <p><strong>Status:</strong> {{ $project->project_description }}</p>
+
+                        <!-- Add more details as needed -->
+
+                        
+                    </div>
+                    
+                </div>
+                
             </div>
         </div>
     </div>
