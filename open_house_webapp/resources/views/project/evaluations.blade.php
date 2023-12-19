@@ -14,8 +14,8 @@
                             @csrf
                             @method('PUT')
 
-                            <p><strong>Project Name:</strong> {{ $evaluations->project_id}}</p>
-                            <p><strong>Evaluator Name:</strong> {{ $evaluations->evaluator_id }}</p>
+                            <p><strong>Project Name:</strong> {{ $evaluations->project->project_name}}</p>
+                            <p><strong>Evaluator Name:</strong> {{ $evaluations->evaluator->user->name }}</p>
                             <p><strong>Status:</strong> {{ $evaluations->is_evaluated ? 'Evaluated' : 'Not Evaluated' }}</p>
                             
                             <label for="score"><strong>Score:</strong></label>
