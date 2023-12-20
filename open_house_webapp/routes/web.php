@@ -5,6 +5,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\EvaluationController;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Evaluator;
 
@@ -44,7 +45,7 @@ Route::middleware('auth')->group(function () {
     {
         $evaluators = Evaluator::all();
         $user = Auth::user(); // Get the authenticated user
-        $curr_eval = $user->evaluator();
+        $curr_eval = $user->evaluator;
         // Update preference for the authenticated evaluator
     
         $curr_eval->preferred_project_category = $request->input('preference');
