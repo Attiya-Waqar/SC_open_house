@@ -16,6 +16,7 @@ class ProjectController extends Controller
         $view = match ($user->role) {
             'admin' => function() use ($user){
                 $evaluations = Evaluation::all();
+                
                 return view('project.admin', compact('evaluations'));
             },
             'evaluator' => function () use ($user) {
@@ -25,7 +26,8 @@ class ProjectController extends Controller
                     return view('project.no_evaluations');
                 } else {
                     $project = Project::where('id', $evaluations->project_id)->first();
-                    return view('project.evaluations', compact('project', 'evaluations'));
+                    $pageName = 'project';
+                    return view('project.evaluations', compact('project', 'evaluations', 'pageName'));
                     
                 }
             },

@@ -18,7 +18,10 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            @php
+            $pageName = 'project';
+            @endphp
+            @include('layouts.navigation',['pageName' => $pageName])
 
             <!-- Page Heading -->
             @if (isset($header))

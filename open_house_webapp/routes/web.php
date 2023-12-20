@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $projects = Project::all();
+    
     return view('dashboard',compact('projects'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
