@@ -12,12 +12,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" style="color:#47a19f">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('project.register')" :active="request()->routeIs('project.register')">
+                    <x-nav-link :href="route('project.register')" :active="request()->routeIs('project.register')" style="color:#47a19f">
                         {{ __('Project') }}
                     </x-nav-link>
+                    @if (Auth::user()->role == "evaluator")
+                        <x-nav-link :href="route('preferences.preferences')" :active="request()->routeIs('preferences.preferences')" style="color:#47a19f">
+                        {{ __('Set Preferences') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 

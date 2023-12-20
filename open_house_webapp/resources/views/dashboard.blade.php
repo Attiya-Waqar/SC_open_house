@@ -3,11 +3,12 @@
 @section('content')
 
     @php
-        $proj = 0;
+        $proj = count($projects) - 1;
     @endphp
 
+    <style> @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap'); </style>
     <div >   
-        <h1 class="display-5 mt-4 ml-4" style="color:ivory"> DASHBOARD 
+        <h1 class="display-5 mt-4 ml-4 text-center" style="color:ivory; font-family: 'Dosis', sans-serif;"> DASHBOARD 
         </h1>
     </div>
 
@@ -15,16 +16,25 @@
         @for ($i=0; $i<7; $i++)
         <div class="d-flex text-center container">
             @for ($j=0; $j<7; $j++)
-               <div class="d-flex justify-content-center align-items-center container m-2 p-0" style="width:10vw; height:10vh; box-shadow: 0px 0px 0px lightgrey; border-radius: 1rem; background-color: #212735; color:#6ef8f1">
+               <div class="d-flex justify-content-center align-items-center container m-2 p-0" style="width:10vw; height:13vh; box-shadow: 0px 0px 0px lightgrey; border-radius: 1rem; background-color: ivory; color:navy">
                     <div>
-                        <p> Project Name </br></p>
-                        <p> Location </p>
+                        <p> {{$projects[$proj]->project_name}} </br></p>
+                        <p> {{$projects[$proj]->stall_location}} </p>
                     </div>
+                    @php
+                        $proj = $proj - 1;
+                        if ($proj < 0)
+                            break;
+                    @endphp
                 </div>
                 @if ($i>0 && $i<6)
                     @break
                 @endif
             @endfor
+            @php
+                if ($proj < 0)
+                            break;
+            @endphp
         </div>
         @endfor
     </div>

@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function evaluator()
+    {
+        return $this->belongsTo(Evaluator::class,'id','user_id');
+    }
 }
