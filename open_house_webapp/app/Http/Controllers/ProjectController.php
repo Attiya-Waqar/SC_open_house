@@ -69,6 +69,7 @@ class ProjectController extends Controller
     // return redirect()->route('project.details', ['id' => $project->id]);
 
     // Or simply return to the project view
-    return view('project.details',compact('project'));
+    $evaluations = Evaluation::where('project_id', $project->id)->get();
+    return view('project.details',compact('project','evaluations'));
 }
 }
