@@ -14,7 +14,11 @@ class ProjectController extends Controller
         $user = Auth::user();
 
         $view = match ($user->role) {
-            'admin' => view(''),
+            'admin' => function() use ($user){
+                $evaluations = Evaluation::all();
+                
+                return view('project.admin', compact('evaluations'));
+            },
             'evaluator' => function () use ($user) {
                 $evaluations = Evaluation::where('evaluator_id', $user->id)->first();
                 
@@ -22,14 +26,16 @@ class ProjectController extends Controller
                     return view('project.no_evaluations');
                 } else {
                     $project = Project::where('id', $evaluations->project_id)->first();
-                    return view('project.evaluations', compact('project', 'evaluations'));
+                    $pageName = 'project';
+                    return view('project.evaluations', compact('project', 'evaluations', 'pageName'));
                     
                 }
             },
             default => function () use ($user) {
                 $project = Project::where('user_id', $user->id)->first();
                 if ($project) {
-                    return view('project.details');
+                    $evaluations = Evaluation::where('project_id', $project->id)->get();
+                    return view('project.details',compact('project','evaluations'));
                 } else {
                     return view('project.register');
                 }
