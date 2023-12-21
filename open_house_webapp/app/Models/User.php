@@ -1,8 +1,8 @@
 <?php
+<?php
 
 namespace App\Models;
-use App\Models\Evaluator;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id'; // Define the primary key for the model
     protected $fillable = [
         'name',
         'email',
@@ -41,12 +41,17 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'email_verified_at' => 'datetime', // Cast email_verified_at as a datetime
+        'password' => 'hashed', // Hash the password attribute
     ];
 
+    /**
+     * Define the relationship between User and Evaluator models.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function evaluator()
     {
-        return $this->belongsTo(Evaluator::class,'id','user_id');
+        return $this->belongsTo(Evaluator::class, 'id', 'user_id'); // Define a belongsTo relationship
     }
 }

@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class EvaluationController extends Controller
 {
+    /**
+     * Update the evaluation score based on the provided request data.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Contracts\View\View
+     */
     public function updateEvaluation(Request $request, $id)
     {
         // Validate the request
@@ -26,6 +33,14 @@ class EvaluationController extends Controller
         // Redirect back to the evaluation details page
         return view('project.evaluations',compact('evaluations'));
     }
+
+    /**
+     * Check if keywords match a specific specialty.
+     *
+     * @param string $keywords
+     * @param string $speciality
+     * @return bool
+     */
     private function matchKeywords($keywords, $speciality){
         $keywords = explode(',', $keywords);
         $speciality = explode(',', $speciality);
@@ -37,6 +52,12 @@ class EvaluationController extends Controller
             return true;
         }
     }
+
+    /**
+     * Generate evaluations for projects based on evaluator preferences.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function generateEvaluations(){
         $maxEvaluations = 5;
         
@@ -52,14 +73,14 @@ class EvaluationController extends Controller
             return view('project.admin',compact('evaluations'));
 
     }
-    /*
-    Method- Matches projects to evaluators based on preferences.
-    @param evaluators: A collection of all avaliable evaluators.
-    @param projects: A collection of all registered projects.
-    precondition: Evaluation table should be empty and all evaluator's
-    attribute 'is_max_evaluations' should be 0
-    postcondition: Each project who's keywords match with the evaluators
-    speciality should be assigned atleast one evaluator.
+    /**
+     * Method- Matches projects to evaluators based on preferences.
+     * @param evaluators: A collection of all avaliable evaluators.
+     * @param projects: A collection of all registered projects.
+     * precondition: Evaluation table should be empty and all evaluator's
+     * attribute 'is_max_evaluations' should be 0
+     * postcondition: Each project who's keywords match with the evaluators
+     * speciality should be assigned atleast one evaluator.
     */
     private function matchProjectsOnPreferences($evaluators,$projects){
         foreach ($evaluators as $evaluator) {
@@ -88,10 +109,10 @@ class EvaluationController extends Controller
         }
     }
     /*
-    Queries the database for the projects which have not been assigned
-    an evaluator, and assigns them an avaliable evaluator at random.
-    precondition: none
-    postcondition: Every project must be assigned atleast one evaluator.
+    * Queries the database for the projects which have not been assigned
+    * an evaluator, and assigns them an avaliable evaluator at random.
+    * precondition: none
+    * postcondition: Every project must be assigned atleast one evaluator.
     */
     private function assignRemainingProjects(){
         $maxEvaluations = 5;
