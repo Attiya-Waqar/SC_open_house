@@ -21,7 +21,7 @@ use App\Models\Evaluator;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -43,12 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/generate_evaluations', [EvaluationController::class, 'generateEvaluations'])->name('generate_evaluation');
     Route::post('/preferences-submit', function (Request $request) 
     {
-        $evaluators = Evaluator::all();
+        $evaluatorcs = Evaluator::all();
         $user = Auth::user(); // Get the authenticated user
         $curr_eval = $user->evaluator;
         // Update preference for the authenticated evaluator
-    
-        $curr_eval->preferred_project_category = $request->input('preference');
+        $curr_eval->preferred_project_category .= ", " . $request->input('preference');
         $curr_eval->save();
 
         return view('preferences.preferences')->with('success', 'Data updated successfully!');
@@ -56,9 +55,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/preferences', function (Request $request) 
     {
-        $user = Auth::user(); // Get the authenticated user      
-        $user->preferred_project_category = $request->input('keyword');
-        
+        $evaluatorcs = Evaluator::all();
+        $user = Auth::user(); // Get the authenticated user
+        $curr_eval = $user->evaluator;
+        // Update preference for the authenticated evaluator
+        $curr_eval->speciality .= ", " . $request->input('keyword');
+        $curr_eval->save();
+
         return view('preferences.preferences')->with('success', 'Data updated successfully!');
     })->name('keyword.submit');
 });
