@@ -45,7 +45,8 @@ Route::middleware('auth')->group(function () {
     {
         $evaluatorcs = Evaluator::all();
         $user = Auth::user(); // Get the authenticated user
-        $curr_eval = $user->evaluator;
+        $curr_eval = $user->evaluator->user_id;
+        
         // Update preference for the authenticated evaluator
         $curr_eval->preferred_project_category .= ", " . $request->input('preference');
         $curr_eval->save();
