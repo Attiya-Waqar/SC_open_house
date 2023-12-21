@@ -4,7 +4,7 @@
 
     @php
         $proj = count($projects) - 1;
-        
+        $count = 1;
     @endphp
 
     <style> @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap'); </style>
@@ -23,7 +23,10 @@
                <div class="d-flex justify-content-center align-items-center container m-2 p-0" style="width:12vw; height:10vh; box-shadow: 0px 0px 0px lightgrey; border-radius: 1rem; background-color: lightgrey; color:#47a19f; font-weight: 1000; border:0.65px solid #47a19f">
                     <div>
                         <p> {{$projects[$proj]->project_name}} </br></p>
-                        <p> {{$projects[$proj]->stall_location}} </p>
+                        <p> {{$count}} </p>
+                        @php
+                        $count++;
+                        @endphp
                     </div>
                     @php
                         $proj = $proj - 1;

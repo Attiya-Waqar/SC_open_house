@@ -15,7 +15,6 @@
                             <div class="card-body p-3 mb-3">
                                 <p><strong>Category:</strong> {{ $project->project_category }}</p>
                                 <p><strong>Description:</strong> {{ $project->project_description }}</p>
-                                <p><strong>Stall Location:</strong> {{ $project->stall_location }}</p>
                                 <p><strong>Keywords:</strong> {{ $project->keywords }}</p>
                             </div>
                         </div>
@@ -24,7 +23,7 @@
                             @foreach($evaluations as $evaluation)
                             <div class="card-body">
                                 <p><strong>Evaluator Name:</strong> {{ $evaluation->evaluator->user->name }}</p>
-                                <p><strong>Status:</strong> {{ $evaluation->project->is_evaluated ? 'Evaluated' : 'Not Evaluated' }}</p>
+                                <p><strong>Status:</strong> {{ $evaluation->is_evaluated ? 'Evaluated' : 'Not Evaluated' }}</p>
                             </div>
                             <hr>
                             @endforeach
