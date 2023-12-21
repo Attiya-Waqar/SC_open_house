@@ -14,7 +14,9 @@
     </div>
 
     <div class="container p-3 mb-5"style="">  
-        @if(!count($projects) === 0)
+        
+        @if(!(count($projects) === 0))
+
         @for ($i=0; $i<7; $i++)
         <div class="d-flex text-center container">
             @for ($j=0; $j<7; $j++)
