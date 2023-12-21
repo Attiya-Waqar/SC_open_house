@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Evaluator;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -36,6 +37,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string', 'max:50'], // Add this line to validate the 'role' field
         ]);
+        
 
         $user = User::create([
             'name' => $request->name,
@@ -43,6 +45,16 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role, // Add this line to include the 'role' field
         ]);
+        if($request->role =='evaluator'){
+            Evaluator::create(
+                [
+                'user_id'=> $user->id,
+                'preferred_project_category'=> '',
+                'speciality'=> '',
+                'is_max_evaluations'=> 0,
+                ]
+            );
+        }
 
         event(new Registered($user));
 
