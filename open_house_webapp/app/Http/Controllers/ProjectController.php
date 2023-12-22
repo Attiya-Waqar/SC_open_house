@@ -26,15 +26,14 @@ class ProjectController extends Controller
             },
             'evaluator' => function () use ($user) {
                 // Get evaluations for the logged-in evaluator
-                $evaluations = Evaluation::where('evaluator_id', $user->id)->first();
+                $evaluations = Evaluation::where('evaluator_id', $user->id)->get();
                 
                 if (!$evaluations) {
                     return view('project.no_evaluations');
                 } else {
                     // Get project details for the evaluator
-                    $project = Project::where('id', $evaluations->project_id)->first();
-                    $pageName = 'project';
-                    return view('project.evaluations', compact('project', 'evaluations', 'pageName'));
+                    
+                    return view('project.evaluations', compact('evaluations'));
                 }
             },
             default => function () use ($user) {

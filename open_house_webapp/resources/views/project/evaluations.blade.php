@@ -10,19 +10,24 @@
                     <div class="card-header p-3" style="background-color: #47a19f; color:snow; font-size: 1.2rem">{{ __('Evaluation Details') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('update_evaluation', ['id' => $evaluations->id]) }}">
+                        @foreach($evaluations as $evaluation)
+                        @php
+                        
+                        @endphp
+                        <form method="POST" action="{{ route('update_evaluation', ['id' =>  $evaluation->id]) }}" class='mb-5'>
                             @csrf
                             @method('PUT')
 
-                            <p><strong>Project Name:</strong> {{ $evaluations->project->project_name}}</p>
-                            <p><strong>Evaluator Name:</strong> {{ $evaluations->evaluator->user->name }}</p>
-                            <p><strong>Status:</strong> {{ $evaluations->is_evaluated ? 'Evaluated' : 'Not Evaluated' }}</p>
+                            <p><strong>Project Name:</strong> {{ $evaluation->project->project_name}}</p>
+                            <p><strong>Evaluator Name:</strong> {{ $evaluation->evaluator->user->name }}</p>
+                            <p><strong>Status:</strong> {{ $evaluation->is_evaluated ? 'Evaluated' : 'Not Evaluated' }}</p>
                             
                             <label for="score"><strong>Score:</strong></label>
-                            <input type="number" id="score" name="score" value="{{ $evaluations->score }}" class="p-1 rounded" required>
+                            <input type="number" id="score" name="score" value="{{ $evaluation->score }}" class="p-1 rounded" required>
 
                             <button type="submit" class="btn btn-outline-primary">Update Score</button>
                         </form>
+                        @endforeach
                     </div>
                 </div>
             </div>

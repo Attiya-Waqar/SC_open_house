@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Evaluation;
 use App\Models\Evaluator;
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class EvaluationController extends Controller
@@ -17,6 +18,7 @@ class EvaluationController extends Controller
      */
     public function updateEvaluation(Request $request, $id)
     {
+        $user = Auth::user();
         // Validate the request
         $request->validate([
             'score' => 'required|integer|min:0|max:100',
@@ -29,7 +31,7 @@ class EvaluationController extends Controller
         $evaluations->is_evaluated = true;
         $evaluations->score = $request->input('score');
         $evaluations->save();
-
+        $evaluations = Evaluation::where('evaluator_id', $user->id)->get();
         // Redirect back to the evaluation details page
         return view('project.evaluations',compact('evaluations'));
     }
